@@ -1,8 +1,7 @@
 package com.karamba.games.controllers;
 
-import com.karamba.games.entities.Product;
-import com.karamba.games.services.CategoryService;
-import com.karamba.games.services.ProductService;
+import com.karamba.games.entities.Purchase;
+import com.karamba.games.services.PurchaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -14,38 +13,36 @@ import java.util.Date;
 import java.util.List;
 
 @RestController
-@RequestMapping("/product")
-public class ProductController {
+@RequestMapping("/purchase")
+public class PurchaseController {
 
     @Autowired
-    private ProductService productService;
-    @Autowired
-    private CategoryService categoryService;
+    private PurchaseService purchaseService;
 
     @PostMapping
-    public ResponseEntity<?> createProduct(@RequestBody Product product){
-        productService.createProduct(product);
+    public ResponseEntity<?> createPurchase(@RequestBody Purchase purchase){
+        purchaseService.createPurchase(purchase);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @GetMapping
-    public List<Product> getAllProducts(){
-        return productService.getAllProducts();}
+    public List<Purchase> findAllPurchases(){
+        return purchaseService.findAllPurchases();}
 
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Product> updateProduct(@RequestBody Product product){
-        productService.updateProduct(product);
+    public ResponseEntity<Purchase> updatePurchase(@RequestBody Purchase purchase){
+        purchaseService.updatePurchase(purchase);
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.setDate(new Date().toInstant());
 
-        return new ResponseEntity<>(product, headers, HttpStatus.OK);
+        return new ResponseEntity<>(purchase, headers, HttpStatus.OK);
     }
 
     @GetMapping("/delete/{id}")
-    public ResponseEntity<?> deleteProduct(@PathVariable Long id){
-        productService.deleteProductById(id);
+    public ResponseEntity<?> deletePurchase(@PathVariable Long id){
+        purchaseService.deletePurchaseById(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

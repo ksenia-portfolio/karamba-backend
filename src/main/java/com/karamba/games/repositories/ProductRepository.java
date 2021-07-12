@@ -13,7 +13,7 @@ import java.util.Optional;
 
 @CrossOrigin("http://localhost:4200")
 @Repository
-public interface ProductRepository extends JpaRepository<Product, Long> {
+public interface           ProductRepository extends JpaRepository<Product, Long> {
 
     List<Product> findByCategory_Id(Long id);
     Optional<Product> findById(Long id);

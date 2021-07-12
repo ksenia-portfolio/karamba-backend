@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/customer")
@@ -28,6 +29,10 @@ public class CustomerController {
     @GetMapping
     public List<Customer> getAllCustomers(){
         return customerService.getAllCustomers();}
+
+    @GetMapping("/findById/{id}")
+    public Optional<Customer> findCustomerById(@PathVariable Long id){
+        return customerService.findCustomerById(id);}
 
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Customer> updateCustomer(@RequestBody Customer customer){
